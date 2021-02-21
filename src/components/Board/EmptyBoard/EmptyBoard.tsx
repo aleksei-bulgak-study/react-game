@@ -8,7 +8,7 @@ const EmptyBoard = ({ size }: InferProps<typeof EmptyBoard.propTypes>): ReactEle
             {Array(size * size)
                 .fill(0)
                 .map((_, index) => (
-                    <Card key={index} position={index} />
+                    <Card key={index} coordinates={{ x: 0, y: 0 }} />
                 ))}
         </div>
     );

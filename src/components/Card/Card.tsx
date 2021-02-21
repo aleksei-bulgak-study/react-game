@@ -9,7 +9,10 @@ const Card = ({ className, value }: InferProps<typeof Card.propTypes>) => {
 Card.propTypes = {
     className: PropTypes.string.isRequired,
     value: PropTypes.number,
-    position: PropTypes.number.isRequired,
+    coordinates: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+    }).isRequired,
 };
 
 Card.defaultProps = {
@@ -22,6 +25,9 @@ export default styled(Card)`
     color: #776e65;
     font-size: 3rem;
     position: relative;
+    transition: top 2s ease-out, left 2s ease-out;
+    top: ${(props) => props.coordinates.x}%;
+    left: ${(props) => props.coordinates.y}%;
 
     & > * {
         position: absolute;
