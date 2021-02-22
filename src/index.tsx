@@ -1,8 +1,10 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { light, dark } from './theme/Theme';
 
 import App from './App';
+import { loadFromStorage } from './utils';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     margin: auto;
 
-    background-color: #faf8ef;
+    background-color: ${(props) => props.theme.boardColor};
 
     display: flex;
     flex-direction:row;
@@ -36,11 +38,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Root = (): ReactElement => (
-    <>
-        <GlobalStyle />
-        <App />
-    </>
-);
+const Root = (): ReactElement => {
+    const [theme, setTheme] = useState(() => (loadFromStorage('theme', 'light') === 'dark' ? dark : light));
+    const onThemeChange = useCallback((themeName) => setTheme(themeName === 'dark' ? dark : light), [setTheme]);
+    return (
+        <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <App onThemeChange={onThemeChange} />
+        </ThemeProvider>
+    );
+};
 
 ReactDOM.render(<Root />, document.getElementById('root'));

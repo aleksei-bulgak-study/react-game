@@ -120,7 +120,7 @@ export default styled(Board)`
         width: clamp(500px, 50%, 1024px);
         height: clamp(500px, 50%, 1024px);
 
-        background-color: #bbada0;
+        background-color: ${props => props.theme.board.background};
         border-radius: 10px;
         position: relative;
 

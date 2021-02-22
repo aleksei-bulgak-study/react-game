@@ -26,7 +26,7 @@ Footer.propTypes = {
 };
 
 export default styled(Footer)`
-    background-color: black;
+    background-color: ${props => props.theme.footer.background};
     width: 100%;
     /* position: absolute;
     left: 0;
@@ -38,7 +38,7 @@ export default styled(Footer)`
     justify-content: flex-start;
 
     .footer__logo {
-        background-color: white;
+        background-color: ${props => props.theme.footer.fontColor};
         top: 0;
         left: 0;
         bottom: 0;
@@ -50,11 +50,11 @@ export default styled(Footer)`
         text-align: center;
         flex-grow: 1;
         .course-link {
-            color: white;
+            color: ${props => props.theme.footer.fontColor};
         }
 
         .copyright {
-            color: white;
+            color: ${props => props.theme.footer.fontColor};
             a {
               color: inherit;
               font-size: inherit;

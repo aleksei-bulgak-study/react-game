@@ -24,7 +24,7 @@ GameInfo.propTypes = {
 };
 
 export default styled(GameInfo)`
-    color: #776e65;
+    color: ${props => props.theme.gameInfo.fontColor};
     position: relative;
 
     & > .info__title {

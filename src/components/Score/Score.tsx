@@ -9,19 +9,19 @@ const Score = ({ className, score = 0 }) => (
 );
 
 export default styled(Score)`
-  background-color: #BBADA0;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
+    background-color: ${(props) => props.theme.gameInfo.score.background};
+    color: ${(props) => props.theme.gameInfo.score.font};
+    padding: 10px;
+    border-radius: 5px;
 
-  .score__title {
-    color: #EBE2D7;
-    text-transform: uppercase;
-    text-align: center;
-  }
+    .score__title {
+        color:  ${props => props.theme.gameInfo.score.title};
+        text-transform: uppercase;
+        text-align: center;
+    }
 
-  .score__value {
-    color: white;
-    text-align: center;
-  }
+    .score__value {
+        color: ${(props) => props.theme.gameInfo.score.font};
+        text-align: center;
+    }
 `;

@@ -9,7 +9,7 @@ const Button = ({ className, title, to }): ReactElement => (
 );
 
 export default styled(Button)`
-    background-color: #8f7a66;
+    background-color: ${props => props.theme.button.background};
     cursor: pointer;
     text-align: center;
     padding: 10px;
@@ -18,7 +18,7 @@ export default styled(Button)`
     height: 40px;
     line-height: 40px;
     & > a {
-        color: white;
+        color: ${props => props.theme.button.color};
         text-decoration: none;
         font-weight: normal;
         position: absolute;

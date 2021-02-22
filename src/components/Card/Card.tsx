@@ -20,9 +20,9 @@ Card.defaultProps = {
 };
 
 export default styled(Card)`
-    background-color: #cdc1b4;
+    background-color: ${props => props.theme.board.card.background};
     border-radius: 5px;
-    color: #776e65;
+    color: ${props => props.theme.board.card.font};
     font-size: 3rem;
     position: relative;
     transition: top 2s ease-out, left 2s ease-out;

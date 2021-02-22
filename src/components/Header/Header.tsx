@@ -26,8 +26,8 @@ Header.propTypes = {
 };
 
 export default styled(Header)`
-    background-color: black;
-    color: white;
+    background-color: ${props => props.theme.header.background};
+    color: ${props => props.theme.header.fontColor};
     width: 100%;
     padding: 1rem;
 
@@ -41,7 +41,7 @@ export default styled(Header)`
         list-style-type: none;
 
         & a {
-            color: white;
+            color: ${props => props.theme.header.fontColor};
         }
     }
 `;
