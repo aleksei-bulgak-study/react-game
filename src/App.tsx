@@ -7,6 +7,7 @@ import Layout from './layouts';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { loadFromStorage } from './utils';
+import FloatingButton from './components/FloatingButton';
 
 const App = ({ className, onThemeChange }: InferProps<typeof App.propTypes>): ReactElement => {
     const [boardSize, setBoardSize] = useState(Number.parseInt(loadFromStorage('boardSize', '4')));
@@ -32,6 +33,7 @@ const App = ({ className, onThemeChange }: InferProps<typeof App.propTypes>): Re
                 </Switch>
             </main>
             <Footer />
+            <FloatingButton onClick={() => document.documentElement.requestFullscreen()} title="Make full screen" />
         </Router>
     );
 };
