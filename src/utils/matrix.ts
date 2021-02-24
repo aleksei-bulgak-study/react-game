@@ -39,65 +39,64 @@ export const convertToYMatrix = (cards: Array<CardElement>): CardElement[][] => 
 };
 
 export const shiftToLeft = (cards: Array<CardElement>): void => {
-  for (let index = 0; index < cards.length; index++) {
-      const left = cards[index];
-      if (index === cards.length - 1) {
-          if (!left.visited) left.matrix.y = index > 0 ? cards[index - 1].matrix.y + 1 : 0;
-      } else {
-          const right = cards[index + 1];
-          if (left.visited) {
-              right.matrix.y = left.matrix.y + 1;
-          }
-          if (left.value === right.value) {
-              right.matrix.y = index;
-              right.value += right.value;
-              right.visited = true;
-              left.delete = true;
-          } else {
-              left.matrix.y = index;
-              right.matrix.y = index + 1;
-          }
-      }
-      left.visited = true;
-  }
+    for (let index = 0; index < cards.length; index++) {
+        const left = cards[index];
+        if (index === cards.length - 1) {
+            if (!left.visited) left.matrix.y = index > 0 ? cards[index - 1].matrix.y + 1 : 0;
+        } else {
+            const right = cards[index + 1];
+            if (left.visited) {
+                right.matrix.y = left.matrix.y + 1;
+            } else if (left.value === right.value) {
+                right.matrix.y = index;
+                right.value += right.value;
+                right.visited = true;
+                left.delete = true;
+            } else {
+                left.matrix.y = index;
+                right.matrix.y = index + 1;
+            }
+        }
+        left.visited = true;
+    }
 };
 
 export const shiftToRight = (cards: Array<CardElement>, size: number): void => {
-  if (cards.length === 1) {
-      cards[0].matrix.y = size - 1;
-      return;
-  }
-  for (let index = cards.length - 1; index >= 0; index--) {
-      const right = cards[index];
-      if (right.visited) {
-          continue;
-      }
-      if (index > 0) {
-          const left = cards[index - 1];
+    if (cards.length === 1) {
+        cards[0].matrix.y = size - 1;
+        return;
+    }
+    for (let index = cards.length - 1; index >= 0; index--) {
+        const right = cards[index];
+        if (right.visited) {
+            continue;
+        }
+        if (index > 0) {
+            const left = cards[index - 1];
 
-          if (right.value === left.value) {
-              right.delete = true;
-              left.value *= 2;
-              right.visited = true;
-              left.visited = true;
+            if (right.value === left.value) {
+                right.delete = true;
+                left.value *= 2;
+                right.visited = true;
+                left.visited = true;
 
-              if (index !== cards.length - 1) {
-                  left.matrix.y = cards[index + 1].matrix.y - 1;
-              } else {
-                  left.matrix.y = size - 1;
-              }
-          } else {
-              right.visited = true;
-              if (index !== cards.length - 1) {
-                  right.matrix.y = cards[index + 1].matrix.y - 1;
-              } else {
-                  right.matrix.y = size - 1;
-              }
-          }
-      } else {
-          right.matrix.y = cards[index + 1].matrix.y - 1;
-      }
-  }
+                if (index !== cards.length - 1) {
+                    left.matrix.y = cards[index + 1].matrix.y - 1;
+                } else {
+                    left.matrix.y = size - 1;
+                }
+            } else {
+                right.visited = true;
+                if (index !== cards.length - 1) {
+                    right.matrix.y = cards[index + 1].matrix.y - 1;
+                } else {
+                    right.matrix.y = size - 1;
+                }
+            }
+        } else {
+            right.matrix.y = cards[index + 1].matrix.y - 1;
+        }
+    }
 };
 
 export const shiftToTop = (cards: Array<CardElement>): void => {
@@ -109,8 +108,7 @@ export const shiftToTop = (cards: Array<CardElement>): void => {
             const right = cards[index + 1];
             if (left.visited) {
                 right.matrix.x = left.matrix.x + 1;
-            }
-            if (left.value === right.value) {
+            } else if (left.value === right.value) {
                 right.matrix.x = index;
                 right.value += right.value;
                 right.visited = true;
@@ -122,9 +120,9 @@ export const shiftToTop = (cards: Array<CardElement>): void => {
         }
         left.visited = true;
     }
-  };
-  
-  export const shiftToDown = (cards: Array<CardElement>, size: number): void => {
+};
+
+export const shiftToDown = (cards: Array<CardElement>, size: number): void => {
     if (cards.length === 1) {
         cards[0].matrix.x = size - 1;
         return;
@@ -136,13 +134,13 @@ export const shiftToTop = (cards: Array<CardElement>): void => {
         }
         if (index > 0) {
             const left = cards[index - 1];
-  
+
             if (right.value === left.value) {
                 right.delete = true;
                 left.value *= 2;
                 right.visited = true;
                 left.visited = true;
-  
+
                 if (index !== cards.length - 1) {
                     left.matrix.x = cards[index + 1].matrix.x - 1;
                 } else {
@@ -160,4 +158,4 @@ export const shiftToTop = (cards: Array<CardElement>): void => {
             right.matrix.x = cards[index + 1].matrix.x - 1;
         }
     }
-  };
+};
