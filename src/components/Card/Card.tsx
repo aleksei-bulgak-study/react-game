@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes, { InferProps } from 'prop-types';
 
-const Card = ({ className, value }: InferProps<typeof Card.propTypes>) => {
-    return <div className={`card ${className}`}>{!!value && <span>{value}</span>}</div>;
+const Card = ({ className, value, position }: InferProps<typeof Card.propTypes>) => {
+    return <div className={`card ${className} ${position}`}>{!!value && <span>{value}</span>}</div>;
 };
 
 Card.propTypes = {
@@ -25,7 +25,8 @@ export default styled(Card)`
     color: ${props => props.theme.board.card.font};
     font-size: 3rem;
     position: relative;
-    transition: top 2s ease-out, left 2s ease-out;
+    transition: top 1s ease-in-out, left 1s ease-in-out;
+    will-change: transform;
     top: ${(props) => props.coordinates.x}%;
     left: ${(props) => props.coordinates.y}%;
 

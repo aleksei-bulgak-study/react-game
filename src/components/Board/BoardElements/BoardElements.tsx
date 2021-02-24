@@ -6,7 +6,7 @@ const BoardElements = ({ cards }: InferProps<typeof BoardElements.propTypes>): R
     return (
         <div className="board__panel real-panel">
             {cards.map((card) => (
-                <Card key={card.uuid} coordinates={card.coordinates} value={card.value} />
+                <Card key={card.uuid} position={card.position} coordinates={card.coordinates} value={card.value} />
             ))}
         </div>
     );
@@ -16,6 +16,7 @@ BoardElements.propTypes = {
     cards: PropTypes.arrayOf(
         PropTypes.shape({
             uuid: PropTypes.number.isRequired,
+            position: PropTypes.number,
             coordinates: PropTypes.shape({
                 x: PropTypes.number.isRequired,
                 y: PropTypes.number.isRequired,

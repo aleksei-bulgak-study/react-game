@@ -4,63 +4,22 @@ import PropTypes from 'prop-types';
 import EmptyBoard from './EmptyBoard';
 import BoardElements from './BoardElements';
 import { InferProps } from 'prop-types';
+import { CardElement } from 'card';
+import {
+    convertToMatrix,
+    convertToYMatrix,
+    shiftToLeft,
+    shiftToRight,
+    shiftToTop,
+    shiftToDown,
+    sortCardsByPosition,
+} from '../../utils/matrix';
 
 const ARROWS = {
     right: 39,
     down: 40,
     up: 38,
     left: 37,
-};
-
-interface Position {
-    x: number;
-    y: number;
-}
-
-interface CardElement {
-    coordinates: Position;
-    matrix: Position;
-    position: number;
-    value: number;
-    delete: boolean;
-    visited: boolean;
-}
-
-const sortCardsByYCoordinates = (cards: Array<CardElement>): Array<CardElement> => {
-    return cards.sort((f, s) => {
-        if (f.matrix.y < s.matrix.y) {
-            return -1;
-        }
-        if (f.matrix.y > s.matrix.y) {
-            return 1;
-        }
-        return 0;
-    });
-};
-
-const shiftToLeft = (cards: Array<CardElement>): void => {
-    for (let index = 0; index < cards.length; index++) {
-        const left = cards[index];
-        if (index === cards.length - 1) {
-            if (!left.visited) left.matrix.y = index > 0 ? cards[index - 1].matrix.y + 1 : 0;
-        } else {
-            const right = cards[index + 1];
-            if (left.visited) {
-                right.matrix.y = left.matrix.y + 1;
-            }
-            if (left.value === right.value) {
-                right.matrix.y = index;
-                right.position = left.position;
-                right.value += right.value;
-                right.visited = true;
-                left.delete = true;
-            } else {
-                left.matrix.y = index;
-                right.matrix.y = index + 1;
-            }
-        }
-        left.visited = true;
-    }
 };
 
 const Board = ({
@@ -99,55 +58,58 @@ const Board = ({
                     x: Math.floor(position / size),
                 },
                 value,
-                uuid: Math.random() * position,
+                uuid: Math.random(),
                 delete: false,
                 visited: false,
             };
             newCards.push(newCard);
         }
-        setCards(newCards);
+        setCards(sortCardsByPosition(newCards));
     }, [cards, options, positions, size, status, onStatusChange]);
 
-    const testLeft = useCallback(() => {
-        const rows: CardElement[][] = [];
-        cards.forEach((card) => {
-            if (!rows[card.matrix.x]) {
-                rows[card.matrix.x] = [];
-            }
-            rows[card.matrix.x].push({ ...card });
-        });
-        const sorted = rows.map(sortCardsByYCoordinates);
-        sorted.forEach(shiftToLeft);
-        setCards(
-            sorted
-                .flat()
-                .filter((card) => !card.delete)
-                .map((card) => {
-                    card.visited = false;
-                    card.coordinates.x = (card.matrix.x * 100) / size;
-                    card.coordinates.y = (card.matrix.y * 100) / size;
-                    return card;
-                }),
-        );
-    }, [cards, size]);
+    const performShift = useCallback(
+        (directionFunction, convertToMatrix): void => {
+            const sorted: CardElement[][] = convertToMatrix(cards);
+            sorted.forEach((row) => directionFunction(row, size));
+            setCards(
+                sortCardsByPosition(
+                    sorted
+                        .flat()
+                        .filter((card) => !card.delete)
+                        .map((card) => {
+                            card.visited = false;
+                            card.coordinates.x = (card.matrix.x * 100) / size;
+                            card.coordinates.y = (card.matrix.y * 100) / size;
+                            card.position = card.matrix.y + card.matrix.x * size;
+                            return card;
+                        }),
+                ),
+            );
+        },
+        [cards, size],
+    );
 
     const keyHandler = useCallback(
         (e: UIEvent) => {
             if (e.which === ARROWS.down) {
+                performShift(shiftToDown, convertToYMatrix);
             } else if (e.which === ARROWS.left) {
-                testLeft();
+                performShift(shiftToLeft, convertToMatrix);
             } else if (e.which === ARROWS.right) {
+                performShift(shiftToRight, convertToMatrix);
             } else if (e.which === ARROWS.up) {
+                performShift(shiftToTop, convertToYMatrix);
             } else {
                 return;
             }
             // addRandomValues();
         },
-        [addRandomValues, testLeft],
+        [addRandomValues, performShift],
     );
 
     useEffect(() => {
         addRandomValues();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
