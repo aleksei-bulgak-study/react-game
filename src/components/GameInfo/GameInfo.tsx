@@ -1,12 +1,15 @@
-import { InferProps } from 'prop-types';
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 import Button from '../Button';
 import Score from '../Score';
 
-const GameInfo = ({ className }: InferProps<typeof GameInfo.propTypes>): ReactElement => (
+type GameInfoProps = {
+    className?: string;
+    score: number;
+};
+
+const GameInfo: FC<GameInfoProps> = ({ className, score = 0 }): ReactElement => (
     <section className={`game-information info ${className}`}>
         <div className="info__title">2048</div>
         <p className="info__help">
@@ -14,17 +17,13 @@ const GameInfo = ({ className }: InferProps<typeof GameInfo.propTypes>): ReactEl
             Join the numbers and get to the 2048 tile!
         </p>
 
-        <Score score={123} className="info__score button" />
+        <Score score={score} className="info__score button" />
         <Button to="/" title="New Game" className="button info__link" />
     </section>
 );
 
-GameInfo.propTypes = {
-    className: PropTypes.string.isRequired,
-};
-
 export default styled(GameInfo)`
-    color: ${props => props.theme.gameInfo.fontColor};
+    color: ${(props) => props.theme.gameInfo.fontColor};
     position: relative;
 
     & > .info__title {

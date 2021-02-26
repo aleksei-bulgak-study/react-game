@@ -1,8 +1,14 @@
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Button = ({ className, title, to }): ReactElement => (
+type ButtonProps = {
+    className: string;
+    title: string;
+    to: string;
+};
+
+const Button: FC<ButtonProps> = ({ className, title, to }): ReactElement => (
     <div className={className}>
         <Link to={to}>{title}</Link>
     </div>

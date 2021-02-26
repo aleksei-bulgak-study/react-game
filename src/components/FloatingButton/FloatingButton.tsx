@@ -1,19 +1,17 @@
-import { InferProps } from 'prop-types';
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
-const FloatingButton = ({ onClick, title, className }: InferProps<typeof FloatingButton.propTypes>) => (
+type FloatingButtonProps = {
+    className?: string;
+    title: string;
+    onClick: (event: MouseEvent) => void;
+};
+
+const FloatingButton: FC<FloatingButtonProps> = ({ onClick, title, className }) => (
     <button onClick={onClick} className={className}>
         {title}
     </button>
 );
-
-FloatingButton.propTypes = {
-    className: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
-    title: PropTypes.string,
-};
 
 export default styled(FloatingButton)`
     position: absolute;

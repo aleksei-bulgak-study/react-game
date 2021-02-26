@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const Score = ({ className, score = 0 }) => (
+type ScoreProps = {
+    className: string;
+    score: number;
+};
+
+const Score: FC<ScoreProps> = ({ className, score = 0 }) => (
     <div className={`${className} score`}>
         <p className="score__title">Score</p>
         <p className="score__value">{score}</p>
@@ -15,7 +20,7 @@ export default styled(Score)`
     border-radius: 5px;
 
     .score__title {
-        color:  ${props => props.theme.gameInfo.score.title};
+        color: ${(props) => props.theme.gameInfo.score.title};
         text-transform: uppercase;
         text-align: center;
     }

@@ -1,26 +1,24 @@
-import { InferProps } from 'prop-types';
-import React, { ReactElement } from 'react';
+import React, { MouseEvent, ReactElement } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
-const GeneralButton = ({
+type GeneralButtonProps = {
+    className?: string,
+    title: string,
+    onClick: (event: MouseEvent) => void,
+    label: string,
+};
+
+const GeneralButton: React.FC<GeneralButtonProps> = ({
     className,
     title,
     label,
     onClick,
-}: InferProps<typeof GeneralButton.propTypes>): ReactElement => (
+}): ReactElement => (
     <label className={className}>
         {label}
         <button onClick={onClick}>{title}</button>
     </label>
 );
-
-GeneralButton.propTypes = {
-    className: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    label: PropTypes.string,
-};
 
 export default styled(GeneralButton)`
     color: ${(props) => props.theme.button.background};

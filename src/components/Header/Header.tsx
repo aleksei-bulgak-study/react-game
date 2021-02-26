@@ -1,9 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
-import PropTypes, { InferProps } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Header = ({ className }: InferProps<typeof Header.propTypes>): ReactElement => (
+type HeaderProps = {
+    className?: string;
+};
+
+const Header:FC<HeaderProps> = ({ className }): ReactElement => (
     <header className={className}>
         <nav className="header__navigation">
             <ul className="navigation__list">
@@ -20,10 +23,6 @@ const Header = ({ className }: InferProps<typeof Header.propTypes>): ReactElemen
         </nav>
     </header>
 );
-
-Header.propTypes = {
-    className: PropTypes.string.isRequired,
-};
 
 export default styled(Header)`
     background-color: ${props => props.theme.header.background};

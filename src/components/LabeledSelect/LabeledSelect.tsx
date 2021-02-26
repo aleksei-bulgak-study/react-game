@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import PropTypes, { InferProps } from 'prop-types';
 
-const LabeledSelect = ({ className, onClick, label, values, selected }: InferProps<typeof LabeledSelect.propTypes>) => (
+type LabeledSelectProps = {
+    id: string;
+    className?: string;
+    selected: string | number;
+    onClick: (event: ChangeEvent) => void;
+    label: string;
+    values: number[];
+};
+
+const LabeledSelect: React.FC<LabeledSelectProps> = ({ className, onClick, label, values, selected }) => (
     <label className={className}>
         {label}
         <select onChange={onClick} value={selected}>
@@ -14,14 +22,6 @@ const LabeledSelect = ({ className, onClick, label, values, selected }: InferPro
         </select>
     </label>
 );
-
-LabeledSelect.propTypes = {
-    className: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    label: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.string).isRequired,
-    selected: PropTypes.string,
-};
 
 export default styled(LabeledSelect)`
     color: ${(props) => props.theme.button.background};

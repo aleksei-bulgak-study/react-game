@@ -1,22 +1,28 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
+import { Settings } from 'settings';
+import { Status } from 'status';
 import styled from 'styled-components';
 import { Board, GameInfo } from '../components';
-import PropTypes, { InferProps } from 'prop-types';
 
-const GamePage = ({ className, size = 4 }: InferProps<typeof GamePage.propTypes>): ReactElement => {
-    const [status, setStatus] = useState({ inProgress: true, failed: false, success: true });
+type GamePageProps = {
+    className?: string;
+    settings: Settings;
+};
+
+const GamePage: FC<GamePageProps> = ({ className, settings }): ReactElement => {
+    const [status, setStatus] = useState({ inProgress: true, failed: false, success: false } as Status);
+    const [score, setScore] = useState(0);
 
     return (
         <div className={`game ${className}`}>
-            <GameInfo status={status} onStatusChange={setStatus} />
-            <Board size={size} status={status} onStatusChange={setStatus} />
+            <GameInfo score={score} />
+            {status.inProgress && (
+                <Board status={status} onScoreChange={setScore} onStatusChange={setStatus} options={settings}/>
+            )}
+            {/* {status.failed && <FailurePage />}
+            {status.success && <CongratulationPage score={score} />} */}
         </div>
     );
-};
-
-GamePage.propTypes = {
-    className: PropTypes.string.isRequired,
-    size: PropTypes.number,
 };
 
 export default styled(GamePage)`

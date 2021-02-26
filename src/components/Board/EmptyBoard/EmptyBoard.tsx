@@ -1,25 +1,20 @@
-import React, { ReactElement } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import React, { FC, ReactElement } from 'react';
 import Card from '../../Card';
 
-const EmptyBoard = ({ size }: InferProps<typeof EmptyBoard.propTypes>): ReactElement => {
+type EmptyBoardProps = {
+    size: number;
+};
+
+const EmptyBoard: FC<EmptyBoardProps> = ({ size }): ReactElement => {
     return (
         <div className="board__panel empty-board">
             {Array(size * size)
                 .fill(0)
                 .map((_, index) => (
-                    <Card key={index} coordinates={{ x: 0, y: 0 }} />
+                    <Card key={index} coordinates={{ x: 0, y: 0 }} defaultVisibility={true} position={0} value={0} />
                 ))}
         </div>
     );
-};
-
-EmptyBoard.propTypes = {
-    size: PropTypes.number,
-};
-
-EmptyBoard.defaultProps = {
-    size: 4,
 };
 
 export default EmptyBoard;

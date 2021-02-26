@@ -1,18 +1,30 @@
-import React, { ReactElement, useCallback, useState } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import React, { FC, ReactElement, useCallback, useState } from 'react';
 import LabeledButton from '../components/LabeledButton';
 import LabeledSelect from '../components/LabeledSelect';
 import { loadFromStorage, storeValueInStorage } from '../utils';
 import styled from 'styled-components';
+import { Settings } from 'settings';
 
 const themes = ['light', 'dark'];
 
-const SettingsPage = ({
+type KeyValuePair = {
+    key: string;
+    value: number;
+};
+
+type SettingsPageProps = {
+    className?: string;
+    settings: Settings;
+    onSettingsChange: (keyValuePair: KeyValuePair) => void;
+    onThemeChange: (theme: string) => void;
+};
+
+const SettingsPage: FC<SettingsPageProps> = ({
     className,
+    settings,
+    onSettingsChange,
     onThemeChange,
-    boardSize,
-    onBoardSizeChange,
-}: InferProps<typeof SettingsPage.propTypes>): ReactElement => {
+}): ReactElement => {
     const [currentTheme, setCurrentTheme] = useState(() => loadFromStorage('theme', themes[0]));
 
     const onThemeChangeClick = useCallback(() => {
@@ -24,11 +36,10 @@ const SettingsPage = ({
 
     const onSelectChange = useCallback(
         (e) => {
-            const newBoardSize = e.target.value;
-            onBoardSizeChange(Number.parseInt(newBoardSize));
-            storeValueInStorage('boardSize', newBoardSize);
+            const { key, value } = e.target;
+            onSettingsChange({ key, value });
         },
-        [onBoardSizeChange],
+        [onSettingsChange],
     );
 
     return (
@@ -40,19 +51,22 @@ const SettingsPage = ({
             />
 
             <LabeledSelect
+                id="boardSize"
                 onClick={onSelectChange}
                 label="Change board size:"
-                values={['2', '4', '5', '6']}
-                selected={'' + boardSize}
+                values={[2, 4, 5, 6]}
+                selected={settings.boardSize}
+            />
+
+            <LabeledSelect
+                id="maxValue"
+                onClick={onSelectChange}
+                label="Choose max number that you want to achieve:"
+                values={[128, 256, 512, 1024, 2048]}
+                selected={settings.maxValue}
             />
         </section>
     );
-};
-
-SettingsPage.propTypes = {
-    onThemeChange: PropTypes.func.isRequired,
-    onBoardSizeChange: PropTypes.func.isRequired,
-    boardSize: PropTypes.number.isRequired,
 };
 
 export default styled(SettingsPage)`

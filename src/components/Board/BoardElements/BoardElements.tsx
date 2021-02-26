@@ -1,29 +1,19 @@
-import React, { ReactElement } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import React, { FC } from 'react';
 import Card from '../../Card';
+import { CardElement } from 'card';
 
-const BoardElements = ({ cards }: InferProps<typeof BoardElements.propTypes>): ReactElement => {
+type BoardElementsProps = {
+    cards: CardElement[];
+};
+
+const BoardElements: FC<BoardElementsProps> = ({ cards }) => {
     return (
-        <div className="board__panel real-panel">
+        <div className="board__panel real-panel" onAnimationEnd={() => console.log('end')}>
             {cards.map((card) => (
                 <Card key={card.uuid} position={card.position} coordinates={card.coordinates} value={card.value} />
             ))}
         </div>
     );
-};
-
-BoardElements.propTypes = {
-    cards: PropTypes.arrayOf(
-        PropTypes.shape({
-            uuid: PropTypes.number.isRequired,
-            position: PropTypes.number,
-            coordinates: PropTypes.shape({
-                x: PropTypes.number.isRequired,
-                y: PropTypes.number.isRequired,
-            }).isRequired,
-            value: PropTypes.number.isRequired,
-        }),
-    ).isRequired,
 };
 
 export default BoardElements;

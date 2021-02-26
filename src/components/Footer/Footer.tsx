@@ -1,10 +1,13 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import PropTypes, { InferProps } from 'prop-types';
 
 import logo from '../../assets/rs_school_js.svg';
 
-const Footer = ({ className }: InferProps<typeof Footer.propTypes>): ReactElement => (
+type FooterProps = {
+    className?: string;
+};
+
+const Footer: FC<FooterProps> = ({ className }) => (
     <footer className={className}>
         <img className="footer__logo" src={logo} alt="Rolling Scopes School" />
         <div className="footer__info">
@@ -21,24 +24,16 @@ const Footer = ({ className }: InferProps<typeof Footer.propTypes>): ReactElemen
     </footer>
 );
 
-Footer.propTypes = {
-  className: PropTypes.string.isRequired,
-};
-
 export default styled(Footer)`
-    background-color: ${props => props.theme.footer.background};
+    background-color: ${(props) => props.theme.footer.background};
     width: 100%;
-    /* position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0; */
     height: 3rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 
     .footer__logo {
-        background-color: ${props => props.theme.footer.fontColor};
+        background-color: ${(props) => props.theme.footer.fontColor};
         top: 0;
         left: 0;
         bottom: 0;
@@ -50,15 +45,15 @@ export default styled(Footer)`
         text-align: center;
         flex-grow: 1;
         .course-link {
-            color: ${props => props.theme.footer.fontColor};
+            color: ${(props) => props.theme.footer.fontColor};
         }
 
         .copyright {
-            color: ${props => props.theme.footer.fontColor};
+            color: ${(props) => props.theme.footer.fontColor};
             a {
-              color: inherit;
-              font-size: inherit;
-              margin-left: 0.5rem;
+                color: inherit;
+                font-size: inherit;
+                margin-left: 0.5rem;
             }
         }
     }
