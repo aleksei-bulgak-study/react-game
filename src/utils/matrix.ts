@@ -47,16 +47,40 @@ export const shiftToLeft = (cards: Array<CardElement>): number => {
         } else {
             const right = cards[index + 1];
             if (left.visited) {
-                right.matrix.y = left.matrix.y + 1;
+                continue;
             } else if (left.value === right.value) {
-                right.matrix.y = index;
+                right.matrix.y = index > 0 ? cards[index - 1].matrix.y + 1 : 0;
                 overalSum += right.value;
                 right.value += right.value;
                 right.visited = true;
                 left.delete = true;
             } else {
                 left.matrix.y = index;
-                right.matrix.y = index + 1;
+            }
+        }
+        left.visited = true;
+    }
+    return overalSum;
+};
+
+export const shiftToTop = (cards: Array<CardElement>): number => {
+    let overalSum = 0;
+    for (let index = 0; index < cards.length; index++) {
+        const left = cards[index];
+        if (index === cards.length - 1) {
+            if (!left.visited) left.matrix.x = index > 0 ? cards[index - 1].matrix.x + 1 : 0;
+        } else {
+            const right = cards[index + 1];
+            if (left.visited) {
+                continue;
+            } else if (left.value === right.value) {
+                right.matrix.x = index > 0 ? cards[index - 1].matrix.x + 1 : 0;
+                overalSum += right.value;
+                right.value += right.value;
+                right.visited = true;
+                left.delete = true;
+            } else {
+                left.matrix.x = index;
             }
         }
         left.visited = true;
@@ -101,32 +125,6 @@ export const shiftToRight = (cards: Array<CardElement>, size: number): number =>
         } else {
             right.matrix.y = cards[index + 1].matrix.y - 1;
         }
-    }
-    return overalSum;
-};
-
-export const shiftToTop = (cards: Array<CardElement>): number => {
-    let overalSum = 0;
-    for (let index = 0; index < cards.length; index++) {
-        const left = cards[index];
-        if (index === cards.length - 1) {
-            if (!left.visited) left.matrix.x = index > 0 ? cards[index - 1].matrix.x + 1 : 0;
-        } else {
-            const right = cards[index + 1];
-            if (left.visited) {
-                right.matrix.x = left.matrix.x + 1;
-            } else if (left.value === right.value) {
-                right.matrix.x = index;
-                overalSum += right.value;
-                right.value += right.value;
-                right.visited = true;
-                left.delete = true;
-            } else {
-                left.matrix.x = index;
-                right.matrix.x = index + 1;
-            }
-        }
-        left.visited = true;
     }
     return overalSum;
 };
