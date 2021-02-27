@@ -8,7 +8,7 @@ type BoardElementsProps = {
 
 const BoardElements: FC<BoardElementsProps> = ({ cards }) => {
     return (
-        <div className="board__panel real-panel" onAnimationEnd={() => console.log('end')}>
+        <div className="board__panel real-panel">
             {cards.map((card) => (
                 <Card key={card.uuid} position={card.position} coordinates={card.coordinates} value={card.value} />
             ))}

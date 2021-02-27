@@ -6,15 +6,16 @@ import Score from '../Score';
 
 type GameInfoProps = {
     className?: string;
-    score: number;
+    score?: number;
+    maxValue: number;
 };
 
-const GameInfo: FC<GameInfoProps> = ({ className, score = 0 }): ReactElement => (
+const GameInfo: FC<GameInfoProps> = ({ className, score = 0, maxValue }): ReactElement => (
     <section className={`game-information info ${className}`}>
-        <div className="info__title">2048</div>
+        <div className="info__title">{maxValue}</div>
         <p className="info__help">
-            <strong>Play 2048 Game</strong>
-            Join the numbers and get to the 2048 tile!
+            <strong>Play {maxValue} Game</strong>
+            Join the numbers and get to the {maxValue} tile!
         </p>
 
         <Score score={score} className="info__score button" />

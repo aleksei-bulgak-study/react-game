@@ -25,4 +25,9 @@ export default styled(FloatingButton)`
     outline: none;
     cursor: pointer;
     color: black;
+
+    &:hover {
+       background-color: #cc2e2e;
+       border: 1px solid red;
+    }
 `;

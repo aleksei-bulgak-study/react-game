@@ -70,21 +70,26 @@ export default styled(Card)`
 
     &.card-128 {
         background-color: #edd073;
+        font-size: 2rem;
     }
 
     &.card-256 {
         background-color: #edcc62;
+        font-size: 2rem;
     }
 
     &.card-512 {
         background-color: #edc950;
+        font-size: 2rem;
     }
 
     &.card-1024 {
         background-color: #edc53f;
+        font-size: 2rem;
     }
 
     &.card-2048 {
         background-color: #edc22e;
+        font-size: 2rem;
     }
 `;

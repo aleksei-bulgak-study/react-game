@@ -8,8 +8,8 @@ import { loadFromStorage } from './utils';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     margin: auto;
 
     background-color: ${(props) => props.theme.boardColor};

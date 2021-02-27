@@ -101,8 +101,8 @@ const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onS
     const checkMaxValue = useCallback(
         (cards: CardElement[]) => {
             const maxValue = Math.max(...cards.map((card) => card.value));
-            if (maxValue === options.maxValue) {
-                onStatusChange((prevStatus) => ({ ...prevStatus, success: true, inProgress: false }) as Status);
+            if (maxValue === +options.maxValue) {
+                onStatusChange((prevStatus) => ({ ...prevStatus, success: true, inProgress: false }));
             }
         },
         [onStatusChange, options],

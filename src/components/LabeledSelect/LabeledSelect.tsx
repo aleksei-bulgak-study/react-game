@@ -10,10 +10,10 @@ type LabeledSelectProps = {
     values: number[];
 };
 
-const LabeledSelect: React.FC<LabeledSelectProps> = ({ className, onClick, label, values, selected }) => (
+const LabeledSelect: React.FC<LabeledSelectProps> = ({ id, className, onClick, label, values, selected }) => (
     <label className={className}>
         {label}
-        <select onChange={onClick} value={selected}>
+        <select id={id} onChange={onClick} value={selected}>
             {values.map((value) => (
                 <option key={value} value={value}>
                     {value}

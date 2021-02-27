@@ -36,8 +36,8 @@ const SettingsPage: FC<SettingsPageProps> = ({
 
     const onSelectChange = useCallback(
         (e) => {
-            const { key, value } = e.target;
-            onSettingsChange({ key, value });
+            const { id, value } = e.target;
+            onSettingsChange({ key: id, value });
         },
         [onSettingsChange],
     );
@@ -62,7 +62,7 @@ const SettingsPage: FC<SettingsPageProps> = ({
                 id="maxValue"
                 onClick={onSelectChange}
                 label="Choose max number that you want to achieve:"
-                values={[128, 256, 512, 1024, 2048]}
+                values={[8, 16, 32, 64, 128, 256, 512, 1024, 2048]}
                 selected={settings.maxValue}
             />
         </section>

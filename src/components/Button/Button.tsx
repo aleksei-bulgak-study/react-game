@@ -33,4 +33,8 @@ export default styled(Button)`
         right: 0;
         bottom: 0;
     }
+
+    &:hover {
+        filter: brightness(80%);
+    }
 `;

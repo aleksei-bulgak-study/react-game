@@ -5,18 +5,20 @@ type GeneralButtonProps = {
     className?: string,
     title: string,
     onClick: (event: MouseEvent) => void,
-    label: string,
+    label?: string,
+    type?: 'submit'|'button'
 };
 
 const GeneralButton: React.FC<GeneralButtonProps> = ({
     className,
     title,
     label,
+    type,
     onClick,
 }): ReactElement => (
     <label className={className}>
         {label}
-        <button onClick={onClick}>{title}</button>
+        <button onClick={onClick} type={type}>{title}</button>
     </label>
 );
 
