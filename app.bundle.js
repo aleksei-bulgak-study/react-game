@@ -363,7 +363,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    color: ${e=>e.theme.footer.fontColor};
+    color: ${e=>e.theme.gameInfo.fontColor};
     & > .scores__list {
         flex-grow: 0.7;
         min-width: 80%;
