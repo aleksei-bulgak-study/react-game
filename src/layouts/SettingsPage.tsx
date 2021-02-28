@@ -65,6 +65,16 @@ const SettingsPage: FC<SettingsPageProps> = ({
                 values={[8, 16, 32, 64, 128, 256, 512, 1024, 2048]}
                 selected={settings.maxValue}
             />
+
+            <div className="hot-keys">
+                <h1>Here is list of controls:</h1>
+                <ul>
+                    <li>↑ - use up keyboard arrow to move elements to the top</li>
+                    <li>↓ - use down keyboard arrow to move elements to the bottom</li>
+                    <li>← - use left keyboard arrow to move elements to the left</li>
+                    <li>→ - use right keyboard arrow to move elements to the right</li>
+                </ul>
+            </div>
         </section>
     );
 };
@@ -75,5 +85,9 @@ export default styled(SettingsPage)`
     flex-wrap: nowrap;
     & > * {
         margin: 0.5rem;
+    }
+    color: ${(props) => props.theme.gameInfo.fontColor};
+    & li {
+        list-style-type: none;
     }
 `;
