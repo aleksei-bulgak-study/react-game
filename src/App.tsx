@@ -63,7 +63,7 @@ const App: React.FC<AppProps> = ({ className, onThemeChange }): ReactElement => 
     }, [results]);
 
     return (
-        <Router>
+        <Router basename={'/react-game'}>
             <Header />
             <main className={className}>
                 <Switch>
