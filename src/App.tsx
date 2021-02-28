@@ -16,6 +16,7 @@ import {
 import FloatingButton from './components/FloatingButton';
 import { Settings } from 'settings';
 import { Result } from 'result';
+import AudioSound from './components/Audio';
 
 type KeyValuePair = {
     key: string;
@@ -95,6 +96,7 @@ const App: React.FC<AppProps> = ({ className, onThemeChange }): ReactElement => 
             </main>
             <Footer />
             <FloatingButton onClick={onFullScreenPressed} title="Full screen toggle" />
+            <AudioSound />
         </Router>
     );
 };

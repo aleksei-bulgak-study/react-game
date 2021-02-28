@@ -15,19 +15,27 @@ const FloatingButton: FC<FloatingButtonProps> = ({ onClick, title, className }) 
 
 export default styled(FloatingButton)`
     position: absolute;
-    bottom: 10%;
-    right: 2%;
-    height: 100px;
+    bottom: 6%;
+    right: 1%;
+    height: 60px;
     width: 100px;
-    border-radius: 50%;
+    border-radius: 20px;
     background-color: red;
     border: none;
     outline: none;
     cursor: pointer;
     color: black;
+    transition: bottom 1s ease-in-out;
 
     &:hover {
        background-color: #cc2e2e;
        border: 1px solid red;
+    }
+
+    @media (max-height: 750px) {
+        bottom: 1px;
+        font-size: 1rem;
+        height: 60px;
+        width: 60px;
     }
 `;

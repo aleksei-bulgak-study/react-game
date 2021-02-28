@@ -2,6 +2,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
@@ -25,7 +26,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.svg$/,
+                test: /\.(svg|mp3)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
@@ -39,7 +40,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public/index.html'),
-        }),
+        })
     ],
 
     devServer: {
