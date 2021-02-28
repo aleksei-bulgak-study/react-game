@@ -11,7 +11,7 @@ const Header:FC<HeaderProps> = ({ className }): ReactElement => (
         <nav className="header__navigation">
             <ul className="navigation__list">
                 <li>
-                    <Link to="/">New game</Link>
+                    <Link to="/refresh">New game</Link>
                 </li>
                 <li>
                     <Link to="/score">Rank table</Link>

@@ -55,7 +55,7 @@ export const shiftToLeft = (cards: Array<CardElement>): number => {
                 right.visited = true;
                 left.delete = true;
             } else {
-                left.matrix.y = index;
+                left.matrix.y = index > 0 ? cards[index - 1].matrix.y + 1 : 0;
             }
         }
         left.visited = true;
@@ -80,7 +80,7 @@ export const shiftToTop = (cards: Array<CardElement>): number => {
                 right.visited = true;
                 left.delete = true;
             } else {
-                left.matrix.x = index;
+                left.matrix.x = index > 0 ? cards[index - 1].matrix.x + 1 : 0;
             }
         }
         left.visited = true;

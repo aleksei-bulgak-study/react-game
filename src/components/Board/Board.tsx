@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import EmptyBoard from './EmptyBoard';
 import BoardElements from './BoardElements';
@@ -17,9 +17,11 @@ import { Settings } from 'settings';
 
 type BoardProps = {
     className?: string;
+    state: CardElement[];
     status: Status;
     onStatusChange: Dispatch<SetStateAction<Status>>;
     onScoreChange: Dispatch<SetStateAction<number>>;
+    onStateChange: (cards: CardElement[]) => void;
     options: Settings;
 };
 
@@ -30,9 +32,8 @@ const ARROWS = {
     left: 37,
 };
 
-const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onScoreChange }) => {
+const Board: FC<BoardProps> = ({ className, state, options, status, onStatusChange, onScoreChange, onStateChange }) => {
     const positions = options.boardSize * options.boardSize;
-    const [cards, setCards] = useState([] as Array<CardElement>);
 
     const addRandomValues = useCallback(
         (cards: CardElement[]) => {
@@ -68,14 +69,14 @@ const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onS
                 };
                 newCards.push(newCard);
             }
-            setCards(sortCardsByPosition(newCards));
+            onStateChange(sortCardsByPosition(newCards));
         },
-        [options, positions, status, onStatusChange],
+        [options, positions, status, onStatusChange, onStateChange],
     );
 
     const performShift = useCallback(
         (directionFunction, convertToMatrix): CardElement[] => {
-            const sorted: CardElement[][] = convertToMatrix(cards);
+            const sorted: CardElement[][] = convertToMatrix(state);
             let scored = 0;
             sorted.forEach((row) => (scored += directionFunction(row, options.boardSize)));
 
@@ -91,11 +92,11 @@ const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onS
                         return card;
                     }),
             );
-            setCards(updatedCards);
-            onScoreChange(previousScore => previousScore + scored);
+            onStateChange(updatedCards);
+            onScoreChange((previousScore) => previousScore + scored);
             return updatedCards;
         },
-        [cards, options, onScoreChange],
+        [options, onScoreChange, state, onStateChange],
     );
 
     const checkMaxValue = useCallback(
@@ -129,7 +130,9 @@ const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onS
     );
 
     useEffect(() => {
-        addRandomValues([]);
+        if(state.length === 0) {
+            addRandomValues([]);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -139,13 +142,13 @@ const Board: FC<BoardProps> = ({ className, options, status, onStatusChange, onS
         return () => {
             window.removeEventListener('keydown', keyHandler);
         };
-    }, [cards, keyHandler]);
+    }, [keyHandler]);
 
     return (
         <div className={`board ${className}`}>
             <div className="board__map">
                 <EmptyBoard size={options.boardSize} />
-                <BoardElements cards={cards} />
+                <BoardElements cards={state} />
             </div>
         </div>
     );

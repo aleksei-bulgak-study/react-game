@@ -19,7 +19,7 @@ const GameInfo: FC<GameInfoProps> = ({ className, score = 0, maxValue }): ReactE
         </p>
 
         <Score score={score} className="info__score button" />
-        <Button to="/" title="New Game" className="button info__link" />
+        <Button to="/refresh" title="New Game" className="button info__link" />
     </section>
 );
 

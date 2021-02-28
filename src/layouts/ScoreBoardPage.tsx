@@ -43,6 +43,7 @@ export default styled(ScoreBoardPage)`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    color: ${props => props.theme.footer.fontColor};
     & > .scores__list {
         flex-grow: 0.7;
         min-width: 80%;
