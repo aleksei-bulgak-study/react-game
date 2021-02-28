@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import { Switch, Redirect } from 'react-router';
 import styled from 'styled-components';
 import Layout from './layouts';
@@ -63,7 +63,7 @@ const App: React.FC<AppProps> = ({ className, onThemeChange }): ReactElement => 
     }, [results]);
 
     return (
-        <Router basename={'/react-game'}>
+        <Router>
             <Header />
             <main className={className}>
                 <Switch>
