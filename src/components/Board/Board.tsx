@@ -76,21 +76,18 @@ const Board: FC<BoardProps> = ({ className, state, options, status, onStatusChan
 
     const performShift = useCallback(
         (directionFunction, convertToMatrix): CardElement[] => {
-            const sorted: CardElement[][] = convertToMatrix(state);
+            const sorted: CardElement[][] = convertToMatrix(state.filter((card) => card.delete !== true));
             let scored = 0;
             sorted.forEach((row) => (scored += directionFunction(row, options.boardSize)));
 
             const updatedCards = sortCardsByPosition(
-                sorted
-                    .flat()
-                    .filter((card) => !card.delete)
-                    .map((card) => {
-                        card.visited = false;
-                        card.coordinates.x = (card.matrix.x * 100) / options.boardSize;
-                        card.coordinates.y = (card.matrix.y * 100) / options.boardSize;
-                        card.position = card.matrix.y + card.matrix.x * options.boardSize;
-                        return card;
-                    }),
+                sorted.flat().map((card) => {
+                    card.visited = false;
+                    card.coordinates.x = (card.matrix.x * 100) / options.boardSize;
+                    card.coordinates.y = (card.matrix.y * 100) / options.boardSize;
+                    card.position = card.matrix.y + card.matrix.x * options.boardSize;
+                    return card;
+                }),
             );
             onStateChange(updatedCards);
             onScoreChange((previousScore) => previousScore + scored);
@@ -130,7 +127,7 @@ const Board: FC<BoardProps> = ({ className, state, options, status, onStatusChan
     );
 
     useEffect(() => {
-        if(state.length === 0) {
+        if (state.length === 0) {
             addRandomValues([]);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

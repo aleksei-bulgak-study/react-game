@@ -8,13 +8,14 @@ type CardProps = {
     position: number;
     coordinates: Position;
     defaultVisibility?: boolean;
+    deleted?: boolean;
 };
 
-const Card: FC<CardProps> = ({ className, value, position, defaultVisibility = false }): ReactElement => {
+const Card: FC<CardProps> = ({ className, value, position, defaultVisibility = false, deleted=false }): ReactElement => {
     const [visible, setVisible] = useState(defaultVisibility);
     useEffect(() => setVisible(true), []);
     return (
-        <div className={`card card-${value} ${className} ${position} ${visible ? 'card-visible' : ''}`}>
+        <div className={`card card-${value} ${className} ${position} ${visible && !deleted ? 'card-visible' : ''}`}>
             {!!value && <span>{value}</span>}
         </div>
     );
@@ -27,7 +28,7 @@ export default styled(Card)`
     color: ${(props) => props.theme.board.card.font};
     font-size: 3rem;
     position: relative;
-    transition: top 1s ease-in-out, left 1s ease-in-out, opacity 2s ease-in, background-color 0.5s ease-out;
+    transition: top 1s ease-in-out, left 1s ease-in-out, opacity 0.5s ease-in, background-color 1s ease-out;
     will-change: transform;
     top: ${(props) => props.coordinates.x}%;
     left: ${(props) => props.coordinates.y}%;
