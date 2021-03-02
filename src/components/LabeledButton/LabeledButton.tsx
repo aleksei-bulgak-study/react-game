@@ -23,7 +23,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 );
 
 export default styled(GeneralButton)`
-    color: ${(props) => props.theme.button.background};
+    color: ${(props) => props.theme.gameInfo.fontColor};
 
     & > button {
         background-color: ${(props) => props.theme.button.background};

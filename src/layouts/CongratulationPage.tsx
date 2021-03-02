@@ -57,6 +57,7 @@ export default styled(CongratulationPage)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     color: ${(props) => props.theme.board.card.font};
     & > .result__form {
         flex-grow: 0.5;

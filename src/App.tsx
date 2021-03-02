@@ -13,10 +13,10 @@ import {
     storeSettingsInStore,
     storeStateInStore,
 } from './utils';
-import FloatingButton from './components/FloatingButton';
+import FullScreenButton from './components/FullScreenButton';
 import { Settings } from 'settings';
 import { Result } from 'result';
-import AudioSound from './components/Audio';
+import AudioButton from './components/AudioButton';
 
 type KeyValuePair = {
     key: string;
@@ -95,8 +95,8 @@ const App: React.FC<AppProps> = ({ className, onThemeChange }): ReactElement => 
                 </Switch>
             </main>
             <Footer />
-            <FloatingButton onClick={onFullScreenPressed} title="Full screen toggle" />
-            <AudioSound />
+            <FullScreenButton onClick={onFullScreenPressed}  />
+            <AudioButton />
         </Router>
     );
 };

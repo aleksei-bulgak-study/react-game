@@ -27,5 +27,6 @@ export default styled(FailurePage)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     color: ${props => props.theme.board.card.font}
 `;

@@ -28,7 +28,7 @@ export default styled(Card)`
     color: ${(props) => props.theme.board.card.font};
     font-size: 3rem;
     position: relative;
-    transition: top 1s ease-in-out, left 1s ease-in-out, opacity 0.5s ease-in, background-color 1s ease-out;
+    transition: top 0.5s ease-in-out, left 0.5s ease-in-out, opacity 0.5s ease-in, background-color 0.5s ease-out;
     will-change: opacity, top, left;
     top: ${(props) => props.coordinates.x}%;
     left: ${(props) => props.coordinates.y}%;

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import audioFile from '../../assets/background.mp3';
 
-type AudioSoundProps = {
+import audioFile from '../../assets/background.mp3';
+import icon from '../../assets/sound.svg';
+
+type AudioButtonProps = {
     className?: string;
 };
 
-const AudioSound: React.FC<AudioSoundProps> = ({ className }) => {
+const AudioButton: React.FC<AudioButtonProps> = ({ className }) => {
     const audio = useRef(new Audio(audioFile));
     const [enabled, setEnabled] = useState(false);
 
@@ -15,7 +17,7 @@ const AudioSound: React.FC<AudioSoundProps> = ({ className }) => {
     useEffect(() => {
         audio.current.loop = true;
         audio.current.autoplay = true;
-        console.log(enabled);
+        audio.current.volume = 0.1;
         if (enabled) {
             audio.current.play();
         } else {
@@ -23,35 +25,31 @@ const AudioSound: React.FC<AudioSoundProps> = ({ className }) => {
         }
     }, [enabled]);
 
-    return (
-        <button className={className} onClick={onClick}>
-            Sound
-        </button>
-    );
+    return <button className={className} onClick={onClick}></button>;
 };
 
-export default styled(AudioSound)`
+export default styled(AudioButton)`
     position: absolute;
-    bottom: 6%;
-    left: 1%;
-    height: 50px;
-    width: 50px;
-    border-radius: 20px;
-    background-color: green;
+    bottom: 3rem;
+    left: 0%;
+    height: 3rem;
+    width: 3rem;
     border: none;
     outline: none;
     cursor: pointer;
-    color: black;
-    transition: bottom 1s ease-in-out;
-    
+    background-color: ${(props) => props.theme.gameInfo.fontColor};
+    mask-image: url(${() => icon});
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+
     &:hover {
-        background-color: #004400;
+        filter: brightness(120%);
     }
 
-    @media (max-height: 750px) {
-        bottom: 1px;
-        font-size: 1rem;
-        height: 60px;
-        width: 60px;
+    @media (max-height: 900px) {
+        top: 0;
+        fill: white;
+        background-color: white;
     }
 `;

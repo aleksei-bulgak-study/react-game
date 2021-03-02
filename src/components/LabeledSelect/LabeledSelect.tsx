@@ -24,7 +24,7 @@ const LabeledSelect: React.FC<LabeledSelectProps> = ({ id, className, onClick, l
 );
 
 export default styled(LabeledSelect)`
-    color: ${(props) => props.theme.button.background};
+    color: ${(props) => props.theme.gameInfo.fontColor};
     & > select {
         margin-left: 0.5rem;
     }
