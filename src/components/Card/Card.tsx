@@ -29,7 +29,7 @@ export default styled(Card)`
     font-size: 3rem;
     position: relative;
     transition: top 1s ease-in-out, left 1s ease-in-out, opacity 0.5s ease-in, background-color 1s ease-out;
-    will-change: transform;
+    will-change: opacity, top, left;
     top: ${(props) => props.coordinates.x}%;
     left: ${(props) => props.coordinates.y}%;
     opacity: 0;
