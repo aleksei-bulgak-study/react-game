@@ -161,8 +161,8 @@ export default styled(Board)`
         flex-direction: row;
         flex-wrap: wrap;
 
-        width: clamp(500px, 50%, 1024px);
-        height: clamp(500px, 50%, 1024px);
+        width: clamp(400px, 50%, 1024px);
+        height: clamp(400px, 50%, 1024px);
 
         background-color: ${(props) => props.theme.board.background};
         border-radius: 10px;
