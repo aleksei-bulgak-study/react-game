@@ -49,8 +49,8 @@
         flex-direction: row;
         flex-wrap: wrap;
 
-        height: min(100%, 500px);
-        aspect-ratio: 1/1;
+        width: clamp(400px, 50%, 1024px);
+        height: clamp(400px, 50%, 1024px);
 
         background-color: ${e=>e.theme.board.background};
         border-radius: 10px;
